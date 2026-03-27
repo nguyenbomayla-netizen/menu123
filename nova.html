@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
-  <title>𝐏𝐀𝐍𝐄𝐋 𝐈𝐎𝐒 | 𝐍𝐎𝐕𝐀 𝐓𝐄𝐂𝐇 - ULTIMATE</title>
+  <title>𝐏𝐀𝐍𝐄𝐋 𝐈𝐎𝐒 | 𝐍𝐎𝐕𝐀 𝐓𝐄𝐂𝐇</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -145,11 +145,11 @@
   <div class="password-box">
     <div class="password-logo"><i class="fas fa-key"></i></div>
     <div class="password-title">𝐍𝐎𝐕𝐀 𝐓𝐄𝐂𝐇</div>
-    <div class="password-sub">NHẬP API KEY ĐỂ TRUY CẬP</div>
-    <input type="password" id="password-input" class="password-input" placeholder="NHẬP API KEY" maxlength="50" autofocus>
+    <div class="password-sub">VUI LÒNG NHẬP KEY ĐẺ SỬ DỤNG MENU</div>
+    <input type="password" id="password-input" class="password-input" placeholder="KEY" maxlength="50" autofocus>
     <button class="password-btn" onclick="checkAPIKey()"><i class="fas fa-unlock-alt"></i> XÁC THỰC</button>
-    <div id="password-error" class="password-error">⚠️ API KEY KHÔNG HỢP LỆ</div>
-    <div class="password-attempts">Liên hệ Admin để lấy API Key</div>
+    <div id="password-error" class="password-error">⚠️ KEY KHÔNG HỢP LỆ HOẶC ĐÃ HẾT HẠN</div>
+    <div class="password-attempts">Liên hệ Admin để mua key độc quyền</div>
     <div style="margin-top: 1rem;"><span class="forgot-link" onclick="openAdminModal()"><i class="fas fa-headset"></i> Liên hệ Admin</span></div>
   </div>
 </div>
@@ -164,12 +164,11 @@
       <div class="admin-contact-item">
         <img src="https://i.ibb.co/4ZVWVqm8/IMG-1663.jpg" class="admin-contact-avatar">
         <div class="admin-contact-info">
-          <div class="admin-contact-name">KRYZOSNOVA</div>
-          <div class="admin-contact-role">Developer / Founder</div>
+          <div class="admin-contact-name">CENTIFER W WYNAHH</div>
+          <div class="admin-contact-role">Developer</div>
           <div class="admin-contact-links">
-            <a href="https://facebook.com/kryzosnova" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://zalo.me/0339849500" target="_blank"><i class="fa-solid fa-phone"></i></a>
-            <a href="mailto:kryzosnova@novatech.com"><i class="fa-regular fa-envelope"></i></a>
+            <a href="https://www.facebook.com/iwcentiferwp/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://zalo.me/07587513859" target="_blank"><i class="fa-solid fa-phone"></i></a>
           </div>
         </div>
       </div>
@@ -279,7 +278,7 @@
   <div id="announce-bar" class="announce">
     <div class="announce-content">
       <i class="fas fa-bullhorn" style="color:#3b82f6;"></i>
-      <span class="announce-title">🔥 NOVA TECH ULTIMATE - HỆ THỐNG TỐI ƯU MẠNH NHẤT</span>
+      <span class="announce-title">🔥 NOVA TECH</span>
       <div class="announce-tags">
         <span class="tag"><i class="fas fa-microchip"></i> AI POWERED</span>
         <span class="tag"><i class="fas fa-chart-line"></i> ULTRA MODE</span>
@@ -604,7 +603,7 @@ async function checkAPIKey() {
         passwordScreen.style.display = 'none';
         document.getElementById('home-intro').style.display = 'flex';
         document.getElementById('enter-panel-btn').disabled = false;
-        document.getElementById('key-status').innerHTML = '✅ API Key đã xác thực thành công!';
+        document.getElementById('key-status').innerHTML = '✅ Key đã xác thực thành công!';
         document.getElementById('key-status').style.color = '#22c55e';
         addLog(`🔑 Xác thực API Key thành công - Welcome ${data.user || data.username || 'User'}`);
       }, 500);
