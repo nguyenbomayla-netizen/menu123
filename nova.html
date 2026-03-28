@@ -9,7 +9,6 @@
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body { background: #0a0e1a; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; color: #eef2ff; min-height: 100vh; }
     #particles-canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; pointer-events: none; z-index: 0; }
-
     .password-screen { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, #070b14 0%, #03060c 100%); z-index: 100; display: flex; justify-content: center; align-items: center; transition: opacity 0.5s; }
     .password-box { background: rgba(8, 14, 26, 0.95); backdrop-filter: blur(20px); border-radius: 2rem; padding: 2rem 1.8rem; border: 1px solid rgba(59, 130, 246, 0.6); width: 90%; max-width: 380px; text-align: center; box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
     .password-logo { font-size: 3rem; margin-bottom: 1rem; background: linear-gradient(135deg, #60a5fa, #3b82f6); -webkit-background-clip: text; background-clip: text; color: transparent; }
@@ -26,7 +25,6 @@
     .forgot-link:hover { text-decoration: underline; }
     .loading-key { display: inline-block; width: 16px; height: 16px; border: 2px solid #3b82f6; border-top-color: transparent; border-radius: 50%; animation: spin 0.6s linear infinite; margin-right: 8px; vertical-align: middle; }
     @keyframes spin { to { transform: rotate(360deg); } }
-    
     .admin-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); backdrop-filter: blur(8px); z-index: 200; display: none; justify-content: center; align-items: center; }
     .admin-modal-content { background: linear-gradient(145deg, #0f172a, #0a0f1f); border-radius: 2rem; padding: 1.5rem; width: 90%; max-width: 400px; border: 1px solid rgba(59, 130, 246, 0.5); box-shadow: 0 0 30px rgba(59, 130, 246, 0.3); }
     .admin-modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem; padding-bottom: 0.5rem; border-bottom: 1px solid rgba(59, 130, 246, 0.3); }
@@ -43,7 +41,6 @@
     .admin-contact-links a { display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px; background: #1e293b; border-radius: 50%; color: #60a5fa; text-decoration: none; transition: all 0.2s; font-size: 0.8rem; }
     .admin-contact-links a:hover { background: #3b82f6; color: white; transform: translateY(-2px); }
     .modal-note { font-size: 0.7rem; color: #6b7280; text-align: center; padding-top: 0.8rem; border-top: 1px solid rgba(59, 130, 246, 0.2); }
-    
     .home-intro { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 2rem 1.5rem; background: linear-gradient(135deg, #070b14 0%, #03060c 100%); z-index: 2; display: none; }
     .intro-title { font-size: 2.4rem; font-weight: 700; letter-spacing: 2px; background: linear-gradient(135deg, #60a5fa, #3b82f6, #1e3a8a); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
     .intro-main { background: rgba(8, 14, 26, 0.75); backdrop-filter: blur(12px); border-radius: 2rem; padding: 2rem 1.8rem; border: 1px solid rgba(59, 130, 246, 0.4); width: 100%; max-width: 500px; text-align: center; }
@@ -61,7 +58,6 @@
     .dev-btn:active { transform: scale(0.97); }
     .dev-btn:disabled { opacity: 0.5; cursor: not-allowed; }
     .container { max-width: 550px; margin: 0 auto; padding: 1rem 1rem 2rem; display: none; position: relative; z-index: 2; }
-
     .header { background: rgba(5, 12, 24, 0.8); backdrop-filter: blur(16px); border-radius: 1.8rem; padding: 1rem 1.2rem; margin-bottom: 1.2rem; border: 1px solid rgba(59, 130, 246, 0.4); }
     .app-title { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; gap: 8px; }
     .app-sub { font-size: 0.7rem; background: #1e3a8a; padding: 0.2rem 0.8rem; border-radius: 30px; color: #bfdbfe; }
@@ -145,7 +141,7 @@
   <div class="password-box">
     <div class="password-logo"><i class="fas fa-key"></i></div>
     <div class="password-title">𝐍𝐎𝐕𝐀 𝐓𝐄𝐂𝐇</div>
-    <div class="password-sub">VUI LÒNG NHẬP KEY ĐẺ SỬ DỤNG MENU</div>
+    <div class="password-sub">VUI LÒNG NHẬP KEY ĐỂ SỬ DỤNG MENU</div>
     <input type="password" id="password-input" class="password-input" placeholder="KEY" maxlength="50" autofocus>
     <button class="password-btn" onclick="checkAPIKey()"><i class="fas fa-unlock-alt"></i> XÁC THỰC</button>
     <div id="password-error" class="password-error">⚠️ KEY KHÔNG HỢP LỆ HOẶC ĐÃ HẾT HẠN</div>
@@ -389,118 +385,21 @@ const authState = {
   verifiedDeviceId: null
 };
 
-const AUTH_MAX_ATTEMPTS = 5;
-const AUTH_LOCK_MS = 5 * 60 * 1000;
 const AUTH_SESSION_MS = 15 * 60 * 1000;
-const AUTH_STORAGE_KEY = 'nova_auth_guard_v2';
-
 const NOVA_VERIFY_URL = 'https://nova.nguyenbomayla.workers.dev/verify';
 const NOVA_USERNAME = 'novaapp';
-// Secret đã chuyển sang Worker, client không còn giữ HMAC secret nữa.
-
-function toHex(buffer) {
-  return Array.from(new Uint8Array(buffer))
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
-}
-
-async function hmacSha256Hex(secret, message) {
-  const encoder = new TextEncoder();
-  const key = await crypto.subtle.importKey(
-    'raw',
-    encoder.encode(secret),
-    { name: 'HMAC', hash: 'SHA-256' },
-    false,
-    ['sign']
-  );
-  const signature = await crypto.subtle.sign('HMAC', key, encoder.encode(message));
-  return toHex(signature);
-}
-
 
 function normalizeKeyInput(value) {
   return (value || '').replace(/\s+/g, '').trim().toUpperCase();
 }
 
-function isKeyFormatPlausible(value) {
-  return /^[A-Z0-9-]{8,64}$/.test(value);
-}
-
-function getAuthGuard() {
-  try {
-    return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY) || '{}') || {};
-  } catch {
-    return {};
+function getDeviceId() {
+  let deviceId = localStorage.getItem('nova_device_id');
+  if (!deviceId) {
+    deviceId = 'device_' + Math.random().toString(36).substr(2, 16) + '_' + Date.now();
+    localStorage.setItem('nova_device_id', deviceId);
   }
-}
-
-function setAuthGuard(data) {
-  localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(data));
-}
-
-function clearAuthGuard() {
-  localStorage.removeItem(AUTH_STORAGE_KEY);
-}
-
-function getRemainingLockMs() {
-  const guard = getAuthGuard();
-  const now = Date.now();
-  return Math.max(0, Number(guard.lockUntil || 0) - now);
-}
-
-function registerFailedAttempt() {
-  const now = Date.now();
-  const guard = getAuthGuard();
-  const prevLockUntil = Number(guard.lockUntil || 0);
-  let attempts = now > prevLockUntil ? Number(guard.attempts || 0) + 1 : Number(guard.attempts || 0);
-  let lockUntil = prevLockUntil;
-
-  if (attempts >= AUTH_MAX_ATTEMPTS) {
-    lockUntil = now + AUTH_LOCK_MS;
-    attempts = 0;
-  }
-
-  setAuthGuard({ attempts, lockUntil });
-  return { attempts, lockUntil };
-}
-
-function clearFailedAttempts() {
-  clearAuthGuard();
-}
-
-function disableProtectedUI() {
-  document.querySelectorAll('#main-panel input, #main-panel select, #main-panel button').forEach(el => {
-    if (el.id !== 'announce-close') {
-      el.disabled = true;
-    }
-  });
-  document.getElementById('enter-panel-btn').disabled = true;
-}
-
-function enableProtectedUI() {
-  document.querySelectorAll('#main-panel input, #main-panel select, #main-panel button').forEach(el => {
-    el.disabled = false;
-  });
-  document.getElementById('enter-panel-btn').disabled = false;
-}
-
-function markVerified(apiKey, deviceId) {
-  isValidKey = true;
-  validatedKey = apiKey;
-  authState.verified = true;
-  authState.verifiedAt = Date.now();
-  authState.verifiedDeviceId = deviceId;
-  enableProtectedUI();
-}
-
-function resetVerification(reason) {
-  isValidKey = false;
-  validatedKey = null;
-  authState.verified = false;
-  authState.verifiedAt = 0;
-  authState.verifiedDeviceId = null;
-  disableProtectedUI();
-  if (reason && typeof addLog === 'function') addLog(`🔒 ${reason}`);
+  return deviceId;
 }
 
 function hasFreshVerification() {
@@ -510,7 +409,16 @@ function hasFreshVerification() {
   return true;
 }
 
-function ensureVerified(reason = 'Phiên xác thực đã hết hạn. Vui lòng nhập lại API Key.') {
+function resetVerification(reason) {
+  isValidKey = false;
+  validatedKey = null;
+  authState.verified = false;
+  authState.verifiedAt = 0;
+  authState.verifiedDeviceId = null;
+  if (reason && typeof addLog === 'function') addLog(`🔒 ${reason}`);
+}
+
+function ensureVerified(reason) {
   if (hasFreshVerification()) return true;
   resetVerification(reason);
   document.getElementById('main-panel').style.display = 'none';
@@ -522,6 +430,14 @@ function ensureVerified(reason = 'Phiên xác thực đã hết hạn. Vui lòng
   return false;
 }
 
+function markVerified(apiKey, deviceId) {
+  isValidKey = true;
+  validatedKey = apiKey;
+  authState.verified = true;
+  authState.verifiedAt = Date.now();
+  authState.verifiedDeviceId = deviceId;
+}
+
 function showPasswordError(message, ms = 4000) {
   const errorDiv = document.getElementById('password-error');
   errorDiv.textContent = message;
@@ -529,16 +445,19 @@ function showPasswordError(message, ms = 4000) {
   setTimeout(() => errorDiv.style.display = 'none', ms);
 }
 
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) return;
-  if (authState.verified && !hasFreshVerification()) {
-    ensureVerified();
-  }
-});
+function disableProtectedUI() {
+  document.querySelectorAll('#main-panel input, #main-panel select, #main-panel button').forEach(el => {
+    if (el.id !== 'announce-close') el.disabled = true;
+  });
+  document.getElementById('enter-panel-btn').disabled = true;
+}
 
-window.addEventListener('beforeunload', () => {
-  resetVerification();
-});
+function enableProtectedUI() {
+  document.querySelectorAll('#main-panel input, #main-panel select, #main-panel button').forEach(el => {
+    el.disabled = false;
+  });
+  document.getElementById('enter-panel-btn').disabled = false;
+}
 
 async function checkAPIKey() {
   const keyInput = document.getElementById('password-input');
@@ -547,21 +466,8 @@ async function checkAPIKey() {
 
   keyInput.value = apiKey;
 
-  const remainingLockMs = getRemainingLockMs();
-  if (remainingLockMs > 0) {
-    const seconds = Math.ceil(remainingLockMs / 1000);
-    showPasswordError(`⚠️ THỬ QUÁ NHIỀU. VUI LÒNG ĐỢI ${seconds} GIÂY`, 2500);
-    return;
-  }
-
   if (!apiKey) {
     showPasswordError('⚠️ VUI LÒNG NHẬP API KEY', 2000);
-    return;
-  }
-
-  if (!isKeyFormatPlausible(apiKey)) {
-    showPasswordError('⚠️ ĐỊNH DẠNG API KEY KHÔNG HỢP LỆ', 2500);
-    registerFailedAttempt();
     return;
   }
 
@@ -594,8 +500,8 @@ async function checkAPIKey() {
     }
 
     if (response.ok && data.valid) {
-      clearFailedAttempts();
       markVerified(apiKey, deviceId);
+      enableProtectedUI();
 
       const passwordScreen = document.getElementById('password-screen');
       passwordScreen.style.opacity = '0';
@@ -609,7 +515,6 @@ async function checkAPIKey() {
       }, 500);
     } else {
       const serverMsg = data.message || data.error || `❌ XÁC THỰC THẤT BẠI (${response.status})`;
-      registerFailedAttempt();
       showPasswordError(serverMsg, 4000);
       keyInput.focus();
       addLog(`❌ Verify thất bại: ${serverMsg}`);
@@ -617,32 +522,13 @@ async function checkAPIKey() {
     }
   } catch (error) {
     console.error('API Error:', error);
-    const localFileHint = location.protocol === 'file:'
-      ? ' | File local có thể bị CORS nếu Edge Function chưa mở Access-Control-Allow-Origin'
-      : '';
-
-    registerFailedAttempt();
-    const msg = `⚠️ KHÔNG THỂ KẾT NỐI SERVER${localFileHint}`;
-    showPasswordError(msg, 5000);
-    addLog(`❌ Lỗi kết nối verify key: ${error?.message || error}${localFileHint}`);
+    showPasswordError(`⚠️ KHÔNG THỂ KẾT NỐI SERVER`, 5000);
+    addLog(`❌ Lỗi kết nối verify key: ${error?.message || error}`);
     resetVerification();
   } finally {
     btn.innerHTML = originalBtnText;
     btn.disabled = false;
   }
-}
-
-function getDeviceId() {
-  let deviceId = localStorage.getItem('nova_device_id');
-  if (!deviceId) {
-    deviceId = 'device_' + Math.random().toString(36).substr(2, 16) + '_' + Date.now();
-    localStorage.setItem('nova_device_id', deviceId);
-  }
-  return deviceId;
-}
-
-async function checkSavedKey() {
-  resetVerification();
 }
 
 function openAdminModal() {
@@ -654,9 +540,7 @@ function closeAdminModal() {
 }
 
 document.getElementById('admin-modal')?.addEventListener('click', function(e) {
-  if (e.target === this) {
-    closeAdminModal();
-  }
+  if (e.target === this) closeAdminModal();
 });
 
 const OFFSET_DATA = {
@@ -671,9 +555,7 @@ const OFFSET_DATA = {
 function applyHex(type) {
   if(typeof h5gg === 'undefined') return false;
   if(OFFSET_DATA[type]) {
-    OFFSET_DATA[type].forEach(item => {
-      h5gg.setValue(item.offset, item.value, "byte");
-    });
+    OFFSET_DATA[type].forEach(item => h5gg.setValue(item.offset, item.value, "byte"));
     return true;
   }
   return false;
@@ -861,7 +743,7 @@ class UltimateFeatureManager {
     this.card?.classList.remove('active');
     this.updateLiveUI(false);
     if(this.uptimeSpan) this.uptimeSpan.innerText = '00:00';
-    addLog(`⏹️ ${this.featureName} ĐÃ TẮT (restart game để revert hoàn toàn)`);
+    addLog(`⏹️ ${this.featureName} ĐÃ TẮT`);
   }
 }
 
@@ -880,11 +762,6 @@ function getSliderValue(id, fallback = 0) {
   const el = document.getElementById(id);
   const num = el ? Number(el.value) : Number(fallback);
   return Number.isFinite(num) ? num : Number(fallback);
-}
-
-function oscillate(seed = 0, speed = 1, amp = 1) {
-  const t = performance.now() / 1000;
-  return Math.sin(t * speed + seed) * amp;
 }
 
 function boostFF() { addLog("🚀 BOOST FREE FIRE - Áp dụng AI Optimization Ultimate"); alert("🚀 Boost Free Fire với AI Engine Ultimate"); }
@@ -1056,9 +933,7 @@ function toggleFPSLock(btn) {
   }
 }
 
-function startLiveStats() {
-  return;
-}
+function startLiveStats() { return; }
 
 class WaveChart {
   constructor(canvasId, valueId, color) { this.canvas = document.getElementById(canvasId); this.valueEl = document.getElementById(valueId); this.color = color; this.data = Array(60).fill(0); this.isRunning = false; this.interval = null; if(this.canvas) { this.ctx = this.canvas.getContext('2d'); this.resize(); window.addEventListener('resize', () => this.resize()); } }
@@ -1071,7 +946,7 @@ const cpuWave = new WaveChart('cpuWaveCanvas', 'cpuWaveValue', '#3b82f6');
 const ramWave = new WaveChart('ramWaveCanvas', 'ramWaveValue', '#60a5fa');
 
 function enterPanel() {
-  if (!ensureVerified()) {
+  if (!ensureVerified('Phiên xác thực không còn hợp lệ. Vui lòng nhập lại API Key!')) {
     alert('⚠️ Phiên xác thực không còn hợp lệ. Vui lòng nhập lại API Key!');
     return;
   }
@@ -1113,8 +988,6 @@ disableProtectedUI();
 initAll();
 addLog("🔥 NOVA TECH ULTIMATE - Hệ thống tối ưu thông minh mạnh nhất đã sẵn sàng");
 addLog("💡 Bật MOD VIP hoặc dọn RAM/CPU để kích hoạt AI Performance Engine");
-
-checkSavedKey();
 
 const pCanvas = document.getElementById('particles-canvas');
 if(pCanvas) {
