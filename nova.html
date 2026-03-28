@@ -283,96 +283,392 @@
     <button class="announce-close" id="announce-close"><i class="fas fa-times"></i></button>
   </div>
 
-  <main class="main-content">
-    <section class="section">
-      <h2 class="section-title vip-title"><i class="fas fa-crown vip-icon"></i> MOD PREMIUM VIP</h2>
-      
-      <div class="feature-card" id="card-aimlock">
-        <div class="card-header"><h3><i class="fas fa-crosshairs"></i> AIMLOCK PRO</h3><span class="badge-vip">VIP AIMLOCK</span></div>
-        <div class="card-body">
-          <div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimlock-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimlock-status">OFFLINE</span></div></div>
-          <div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="aimlock-uptime">00:00</span></div>
-          <div class="info-row"><span class="info-label">RETICLE</span><span class="info-value coord-value" id="aimlock-reticle">771.3, 378.8</span></div>
-          <div class="desc-text">Bám đầu thông minh – Tự động cân chuẩn điểm ngắm vào đầu mục tiêu</div>
-          <div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AIMLOCK</span><div class="toggle-switch"><input type="checkbox" id="toggle-aimlock" class="toggle-input"><label for="toggle-aimlock" class="toggle-slider-round"></label></div></div>
-        </div>
-      </div>
-      
-      <div class="feature-card" id="card-stability"><div class="card-header"><h3><i class="fas fa-hand-peace"></i> STABILITY ASSIST</h3><span class="badge-vip">VIP STABILITY</span></div><div class="card-body"><div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="stability-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="stability-status">OFFLINE</span></div></div><div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="stability-uptime">00:00</span></div><div class="info-row"><span class="info-label">RETICLE</span><span class="info-value coord-value" id="stability-reticle">677.2, 361.8</span></div><div class="desc-text">Nhẹ tâm – Ổn định đường ngắm, giảm độ trôi khi di chuyển</div><div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE STABILITY</span><div class="toggle-switch"><input type="checkbox" id="toggle-stability" class="toggle-input"><label for="toggle-stability" class="toggle-slider-round"></label></div></div></div></div>
-      
-      <div class="feature-card" id="card-aimhold"><div class="card-header"><h3><i class="fas fa-anchor"></i> AIM HOLD</h3><span class="badge-vip">VIP AIM HOLD</span></div><div class="card-body"><div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimhold-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimhold-status">OFFLINE</span></div></div><div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="aimhold-uptime">00:00</span></div><div class="info-row"><span class="info-label">ANCHOR</span><span class="info-value coord-value" id="aimhold-anchor">664.6, 369.7</span></div><div class="info-row"><span class="info-label">RETICLE</span><span class="info-value coord-value" id="aimhold-reticle">672.3, 363.2</span></div><div class="info-row"><span class="info-label">ROCK</span><span class="info-value" id="aimhold-rock">13.5 HP</span></div><div class="desc-text">Ghim tâm – Giữ cố định điểm ngắm khi đứng yên tấn công</div><div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AIM HOLD</span><div class="toggle-switch"><input type="checkbox" id="toggle-aimhold" class="toggle-input"><label for="toggle-aimhold" class="toggle-slider-round"></label></div></div></div></div>
-      
-      <div class="feature-card" id="card-lockdown"><div class="card-header"><h3><i class="fas fa-lock"></i> AIM LOCKDOWN</h3><span class="badge-vip">VIP LOCKDOWN</span></div><div class="card-body"><div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="lockdown-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="lockdown-status">OFFLINE</span></div></div><div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="lockdown-uptime">00:00</span></div><div class="info-row"><span class="info-label">LOCK ZONE</span><span class="info-value coord-value" id="lockdown-zone">842.5, 412.3</span></div><div class="desc-text">Điểm tâm – Khóa vị trí ngắm chắc chắn trong vùng mục tiêu</div><div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE LOCKDOWN</span><div class="toggle-switch"><input type="checkbox" id="toggle-lockdown" class="toggle-input"><label for="toggle-lockdown" class="toggle-slider-round"></label></div></div></div></div>
+<main class="main-content">
+  <section class="section">
+    <h2 class="section-title vip-title"><i class="fas fa-crown vip-icon"></i> MOD PREMIUM VIP</h2>
 
-      <div class="feature-card" id="card-autoheadshot">
-        <div class="card-header"><h3><i class="fas fa-head-side-vr"></i> AUTO HEADSHOT ULTIMATE</h3><span class="badge-vip">VIP HS</span></div>
-        <div class="card-body">
-           <div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimlock-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimlock-status">OFFLINE</span></div></div>
-          <div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="hs-uptime">00:00</span></div>
-          <div class="info-row"><span class="info-label">HS RATE</span><span class="info-value success-rate" id="hs-rate">0%</span></div>
-          <div class="info-row"><span class="info-label">HEADSHOTS</span><span class="info-value hs-count" id="hs-count">0</span></div>
-          <div class="desc-text">Tự động headshot mọi đối thủ - Sức mạnh tối thượng!</div>
-          <div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AUTO HS</span><div class="toggle-switch"><input type="checkbox" id="toggle-autoheadshot" class="toggle-input"><label for="toggle-autoheadshot" class="toggle-slider-round"></label></div></div>
+    <div class="feature-card" id="card-aimlock">
+      <div class="card-header">
+        <h3><i class="fas fa-crosshairs"></i> AIMLOCK PRO</h3>
+        <span class="badge-vip">VIP AIMLOCK</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value uptime-value" id="aimlock-uptime">00:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">RETICLE</span>
+          <span class="info-value coord-value" id="aimlock-reticle">771.3, 378.8</span>
+        </div>
+        <div class="desc-text">Bám đầu thông minh – Tự động cân chuẩn điểm ngắm vào đầu mục tiêu</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AIMLOCK</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-aimlock" class="toggle-input">
+            <label for="toggle-aimlock" class="toggle-slider-round"></label>
+          </div>
         </div>
       </div>
-      
-      <div class="feature-card" id="card-norecoil">
-        <div class="card-header"><h3><i class="fas fa-crosshairs"></i> NO RECOIL</h3><span class="badge-vip">VIP RECOIL</span></div>
-        <div class="card-body">
-          <div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimlock-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimlock-status">OFFLINE</span></div></div>
-          <div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="recoil-uptime">00:00</span></div>
-          <div class="info-row"><span class="info-label">RECOIL VAL</span><span class="info-value" id="recoil-value">0.00</span></div>
-          <div class="info-row"><span class="info-label">STABILITY</span><span class="info-value" id="recoil-stability">100%</span></div>
-          <div class="desc-text">Triệt tiêu hoàn toàn giật súng, bắn như laser</div>
-          <div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE NO RECOIL</span><div class="toggle-switch"><input type="checkbox" id="toggle-norecoil" class="toggle-input"><label for="toggle-norecoil" class="toggle-slider-round"></label></div></div>
-        </div>
-      </div>
-      
-      <div class="feature-card" id="card-touchboost">
-        <div class="card-header"><h3><i class="fas fa-hand-pointer"></i> TOUCH BOOST</h3><span class="badge-vip">VIP TOUCH</span></div>
-        <div class="card-body">
-          <div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimlock-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimlock-status">OFFLINE</span></div></div>
-          <div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="touch-uptime">00:00</span></div>
-          <div class="info-row"><span class="info-label">RESPONSE</span><span class="info-value" id="touch-response">0ms</span></div>
-          <div class="info-row"><span class="info-label">SENSITIVITY</span><span class="info-value" id="touch-sensitivity">0x</span></div>
-          <div class="desc-text">Tăng tốc độ cảm ứng, phản hồi chạm tức thời</div>
-          <div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE TOUCH BOOST</span><div class="toggle-switch"><input type="checkbox" id="toggle-touchboost" class="toggle-input"><label for="toggle-touchboost" class="toggle-slider-round"></label></div></div>
-        </div>
-      </div>
-      
-      <div class="feature-card" id="card-fpsboost">
-        <div class="card-header"><h3><i class="fas fa-tachometer-alt"></i> FPS BOOST ULTRA</h3><span class="badge-vip">VIP FPS</span></div>
-        <div class="card-body">
-          <div class="info-row"><span class="info-label">STATUS</span><div class="status-container" id="aimlock-status-container"><span class="live-dot" style="display: none;"></span><span class="live-text" style="display: none;">LIVE</span><span class="status-badge status-off" id="aimlock-status">OFFLINE</span></div></div>
-          <div class="info-row"><span class="info-label">UPTIME</span><span class="info-value uptime-value" id="fps-uptime">00:00</span></div>
-          <div class="info-row"><span class="info-label">CURRENT FPS</span><span class="info-value" id="fps-current">0</span></div>
-          <div class="info-row"><span class="info-label">MAX FPS</span><span class="info-value" id="fps-max">90</span></div>
-          <div class="desc-text">Mở khóa FPS tối đa, chơi mượt như 90Hz</div>
-          <div class="toggle-control"><span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE FPS BOOST</span><div class="toggle-switch"><input type="checkbox" id="toggle-fpsboost" class="toggle-input"><label for="toggle-fpsboost" class="toggle-slider-round"></label></div></div>
-        </div>
-      </div>
-    </section>
-
-    <section class="section">
-      <div class="sensi-item"><div class="sensi-content"><i class="fas fa-mobile-screen-button sensi-icon"></i><div class="sensi-info"><span>DEVICE:</span><span>IPHONE ULTIMATE</span></div></div></div>
-      <div class="sensi-item"><div class="sensi-content"><i class="fas fa-sliders sensi-icon"></i><div class="sensi-info"><span>CHẾ ĐỘ PANEL :</span><div class="dropdown"><select id="mode-select" class="dropdown-select"><option>Mượt Mà</option><option>Cao Cấp</option><option>Tiêu Chuẩn</option></select><i class="fas fa-chevron-down dropdown-arrow"></i></div></div></div></div>
-      <div class="sensi-item"><div class="sensi-content"><i class="fas fa-bullseye sensi-icon"></i><div class="sensi-info"><span>DPI PANEL IOS :</span><div class="dropdown"><select id="dpi-select" class="dropdown-select"><option>1.0x</option><option>1.5x</option><option>2.0x</option><option>2.5x</option><option>3.0x</option></select><i class="fas fa-chevron-down dropdown-arrow"></i></div></div></div></div>
-    </section>
-
-    <div class="section settings-tab">
-      <div class="settings-header"><i class="fas fa-sliders-h" style="color:#3b82f6;"></i><h3>AI PERFORMANCE ENGINE ULTIMATE</h3><span class="ai-badge">AI POWERED</span></div>
-      <div class="stats-grid-4"><div class="stat-card"><div class="stat-label">DEVICE</div><div class="stat-value">ONLINE</div></div><div class="stat-card"><div class="stat-label">PERFORMANCE</div><div class="stat-value" id="perf-mode">ULTRA</div></div><div class="stat-card"><div class="stat-label">THERMAL</div><div class="stat-value" id="thermal-status">STABLE</div></div><div class="stat-card"><div class="stat-label">AI ASSIST</div><div class="stat-value" id="ai-status">READY</div></div></div>
-      <div class="ai-engine"><div class="ai-title"><i class="fas fa-brain"></i> AI PERFORMANCE ENGINE</div><div class="ai-desc">Hệ thống tối ưu hóa AI đang hoạt động ở chế độ Ultra. Phân tích thời gian thực đã được kích hoạt.</div><div class="mode-buttons"><button class="mode-btn active" data-mode="ultra">ULTRA MODE</button><button class="mode-btn" data-mode="ai">AI ON</button><button class="mode-btn" data-mode="eco">ECO</button><button class="mode-btn" data-mode="balance">BALANCE</button></div></div>
-      <div class="ai-title"><i class="fas fa-chart-line"></i> LIVE STATISTICS</div><div class="live-stats"><div class="live-stat-item"><span class="live-stat-label">FPS</span><span class="live-stat-value" id="live-fps">56</span><span class="stat-unit">frames/sec</span></div><div class="live-stat-item"><span class="live-stat-label">PING</span><span class="live-stat-value" id="live-ping">36</span><span class="stat-unit">ms</span></div><div class="live-stat-item"><span class="live-stat-label">CPU</span><span class="live-stat-value" id="live-cpu">50</span><span class="stat-unit">% load</span></div><div class="live-stat-item"><span class="live-stat-label">GPU</span><span class="live-stat-value" id="live-gpu">46</span><span class="stat-unit">% load</span></div></div>
     </div>
 
-    <div class="wave-chart-container"><div class="wave-header"><span class="wave-title"><i class="fas fa-chart-line"></i> CPU WAVE</span><span class="wave-value" id="cpuWaveValue">0%</span></div><canvas id="cpuWaveCanvas" class="wave-canvas" width="800" height="100"></canvas></div>
-    <div class="wave-chart-container"><div class="wave-header"><span class="wave-title"><i class="fas fa-memory"></i> RAM WAVE</span><span class="wave-value" id="ramWaveValue">0%</span></div><canvas id="ramWaveCanvas" class="wave-canvas" width="800" height="100"></canvas><div class="wave-stats" style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.65rem;"><span>JS Heap Used: <span id="heapUsed">N/A</span></span><span>Limit: <span id="heapLimit">N/A</span></span></div></div>
+    <div class="feature-card" id="card-stability">
+      <div class="card-header">
+        <h3><i class="fas fa-hand-peace"></i> STABILITY ASSIST</h3>
+        <span class="badge-vip">VIP STABILITY</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">RETICLE</span>
+          <span class="info-value coord-value" id="stability-reticle">677.2, 361.8</span>
+        </div>
+        <div class="desc-text">Nhẹ tâm – Ổn định đường ngắm, giảm độ trôi khi di chuyển</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE STABILITY</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-stability" class="toggle-input">
+            <label for="toggle-stability" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <section class="section"><h2 class="section-title"><i class="fas fa-microchip"></i> RAM / CPU MONITOR</h2><div class="cm-topbar"><div class="cm-controls"><button id="ramCleanBtn" class="cm-btn cm-btn-primary"><i class="fas fa-broom"></i> Dọn RAM</button><button id="cpuCleanBtn" class="cm-btn cm-btn-primary"><i class="fas fa-microchip"></i> Dọn CPU</button><button id="fpsLockBtn" class="cm-btn cm-btn-danger"><i class="fas fa-lock"></i> Lock FPS: OFF</button></div><div class="cm-pill"><span>FPS</span><b id="fpsValue">--</b><span>• Mode</span><b id="fpsMode">Unlocked</b></div></div><div class="console-pro"><div class="console-header"><span class="console-dot"></span><span>SYSTEM CONSOLE</span><span>LIVE</span></div><div id="consoleLog" class="cm-console">[✅] NOVA TECH ULTIMATE - Hệ thống tối ưu mạnh nhất đã sẵn sàng</div></div></section>
-    <div class="booster-title"><span>⚡</span> BOOSTER <span>⚡</span></div><div class="booster-card"><div class="booster-left"><img src="https://i.ibb.co/4ZVWVqm8/IMG-1663.jpg" class="booster-icon"><span>FREE FIRE</span></div><button class="booster-btn" onclick="boostFF()">BOOSTER</button></div><div class="booster-card"><div class="booster-left"><img src="https://i.ibb.co/chQpJKC7/IMG-1662.jpg" class="booster-icon"><span>FREE FIRE MAX</span></div><button class="booster-btn" onclick="boostFFMax()">BOOSTER</button></div>
-    <div class="footer">© 2026 BẢNG QUYỀN DEV KRYZOSNOVA | NOVA TECH ULTIMATE - Tối ưu thông minh</div>
-  </main>
+    <div class="feature-card" id="card-aimhold">
+      <div class="card-header">
+        <h3><i class="fas fa-anchor"></i> AIM HOLD</h3>
+        <span class="badge-vip">VIP AIM HOLD</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">ANCHOR</span>
+          <span class="info-value coord-value" id="aimhold-anchor">664.6, 369.7</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">RETICLE</span>
+          <span class="info-value coord-value" id="aimhold-reticle">672.3, 363.2</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">ROCK</span>
+          <span class="info-value" id="aimhold-rock">13.5 HP</span>
+        </div>
+        <div class="desc-text">Ghim tâm – Giữ cố định điểm ngắm khi đứng yên tấn công</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AIM HOLD</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-aimhold" class="toggle-input">
+            <label for="toggle-aimhold" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card" id="card-lockdown">
+      <div class="card-header">
+        <h3><i class="fas fa-lock"></i> AIM LOCKDOWN</h3>
+        <span class="badge-vip">VIP LOCKDOWN</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">LOCK ZONE</span>
+          <span class="info-value coord-value" id="lockdown-zone">842.5, 412.3</span>
+        </div>
+        <div class="desc-text">Điểm tâm – Khóa vị trí ngắm chắc chắn trong vùng mục tiêu</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE LOCKDOWN</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-lockdown" class="toggle-input">
+            <label for="toggle-lockdown" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card" id="card-autoheadshot">
+      <div class="card-header">
+        <h3><i class="fas fa-head-side-vr"></i> AUTO HEADSHOT ULTIMATE</h3>
+        <span class="badge-vip">VIP HS</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value uptime-value" id="hs-uptime">00:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">HS RATE</span>
+          <span class="info-value success-rate" id="hs-rate">0%</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">HEADSHOTS</span>
+          <span class="info-value hs-count" id="hs-count">0</span>
+        </div>
+        <div class="desc-text">Tự động headshot mọi đối thủ - Sức mạnh tối thượng!</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE AUTO HS</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-autoheadshot" class="toggle-input">
+            <label for="toggle-autoheadshot" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card" id="card-norecoil">
+      <div class="card-header">
+        <h3><i class="fas fa-crosshairs"></i> NO RECOIL</h3>
+        <span class="badge-vip">VIP RECOIL</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value uptime-value" id="recoil-uptime">00:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">RECOIL VAL</span>
+          <span class="info-value" id="recoil-value">0.00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">STABILITY</span>
+          <span class="info-value" id="recoil-stability">100%</span>
+        </div>
+        <div class="desc-text">Triệt tiêu hoàn toàn giật súng, bắn như laser</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE NO RECOIL</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-norecoil" class="toggle-input">
+            <label for="toggle-norecoil" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card" id="card-touchboost">
+      <div class="card-header">
+        <h3><i class="fas fa-hand-pointer"></i> TOUCH BOOST</h3>
+        <span class="badge-vip">VIP TOUCH</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value uptime-value" id="touch-uptime">00:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">RESPONSE</span>
+          <span class="info-value" id="touch-response">0ms</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">SENSITIVITY</span>
+          <span class="info-value" id="touch-sensitivity">0x</span>
+        </div>
+        <div class="desc-text">Tăng tốc độ cảm ứng, phản hồi chạm tức thời</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE TOUCH BOOST</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-touchboost" class="toggle-input">
+            <label for="toggle-touchboost" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="feature-card" id="card-fpsboost">
+      <div class="card-header">
+        <h3><i class="fas fa-tachometer-alt"></i> FPS BOOST ULTRA</h3>
+        <span class="badge-vip">VIP FPS</span>
+      </div>
+      <div class="card-body">
+        <div class="info-row">
+          <span class="info-label">UPTIME</span>
+          <span class="info-value uptime-value" id="fps-uptime">00:00</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">CURRENT FPS</span>
+          <span class="info-value" id="fps-current">0</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">MAX FPS</span>
+          <span class="info-value" id="fps-max">90</span>
+        </div>
+        <div class="desc-text">Mở khóa FPS tối đa, chơi mượt như 90Hz</div>
+        <div class="toggle-control">
+          <span class="toggle-label-text"><i class="fas fa-power-off"></i> ENABLE FPS BOOST</span>
+          <div class="toggle-switch">
+            <input type="checkbox" id="toggle-fpsboost" class="toggle-input">
+            <label for="toggle-fpsboost" class="toggle-slider-round"></label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="sensi-item">
+      <div class="sensi-content">
+        <i class="fas fa-mobile-screen-button sensi-icon"></i>
+        <div class="sensi-info">
+          <span>DEVICE:</span>
+          <span>IPHONE ULTIMATE</span>
+        </div>
+      </div>
+    </div>
+    <div class="sensi-item">
+      <div class="sensi-content">
+        <i class="fas fa-sliders sensi-icon"></i>
+        <div class="sensi-info">
+          <span>CHẾ ĐỘ PANEL :</span>
+          <div class="dropdown">
+            <select id="mode-select" class="dropdown-select">
+              <option>Mượt Mà</option>
+              <option>Cao Cấp</option>
+              <option>Tiêu Chuẩn</option>
+            </select>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="sensi-item">
+      <div class="sensi-content">
+        <i class="fas fa-bullseye sensi-icon"></i>
+        <div class="sensi-info">
+          <span>DPI PANEL IOS :</span>
+          <div class="dropdown">
+            <select id="dpi-select" class="dropdown-select">
+              <option>1.0x</option>
+              <option>1.5x</option>
+              <option>2.0x</option>
+              <option>2.5x</option>
+              <option>3.0x</option>
+            </select>
+            <i class="fas fa-chevron-down dropdown-arrow"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section settings-tab">
+    <div class="settings-header">
+      <i class="fas fa-sliders-h" style="color:#3b82f6;"></i>
+      <h3>AI PERFORMANCE ENGINE ULTIMATE</h3>
+      <span class="ai-badge">AI POWERED</span>
+    </div>
+    <div class="stats-grid-4">
+      <div class="stat-card">
+        <div class="stat-label">DEVICE</div>
+        <div class="stat-value">ONLINE</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">PERFORMANCE</div>
+        <div class="stat-value" id="perf-mode">ULTRA</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">THERMAL</div>
+        <div class="stat-value" id="thermal-status">STABLE</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">AI ASSIST</div>
+        <div class="stat-value" id="ai-status">READY</div>
+      </div>
+    </div>
+    <div class="ai-engine">
+      <div class="ai-title"><i class="fas fa-brain"></i> AI PERFORMANCE ENGINE</div>
+      <div class="ai-desc">Hệ thống tối ưu hóa AI đang hoạt động ở chế độ Ultra. Phân tích thời gian thực đã được kích hoạt.</div>
+      <div class="mode-buttons">
+        <button class="mode-btn active" data-mode="ultra">ULTRA MODE</button>
+        <button class="mode-btn" data-mode="ai">AI ON</button>
+        <button class="mode-btn" data-mode="eco">ECO</button>
+        <button class="mode-btn" data-mode="balance">BALANCE</button>
+      </div>
+    </div>
+    <div class="ai-title"><i class="fas fa-chart-line"></i> LIVE STATISTICS</div>
+    <div class="live-stats">
+      <div class="live-stat-item">
+        <span class="live-stat-label">FPS</span>
+        <span class="live-stat-value" id="live-fps">56</span>
+        <span class="stat-unit">frames/sec</span>
+      </div>
+      <div class="live-stat-item">
+        <span class="live-stat-label">PING</span>
+        <span class="live-stat-value" id="live-ping">36</span>
+        <span class="stat-unit">ms</span>
+      </div>
+      <div class="live-stat-item">
+        <span class="live-stat-label">CPU</span>
+        <span class="live-stat-value" id="live-cpu">50</span>
+        <span class="stat-unit">% load</span>
+      </div>
+      <div class="live-stat-item">
+        <span class="live-stat-label">GPU</span>
+        <span class="live-stat-value" id="live-gpu">46</span>
+        <span class="stat-unit">% load</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="wave-chart-container">
+    <div class="wave-header">
+      <span class="wave-title"><i class="fas fa-chart-line"></i> CPU WAVE</span>
+      <span class="wave-value" id="cpuWaveValue">0%</span>
+    </div>
+    <canvas id="cpuWaveCanvas" class="wave-canvas" width="800" height="100"></canvas>
+  </div>
+
+  <div class="wave-chart-container">
+    <div class="wave-header">
+      <span class="wave-title"><i class="fas fa-memory"></i> RAM WAVE</span>
+      <span class="wave-value" id="ramWaveValue">0%</span>
+    </div>
+    <canvas id="ramWaveCanvas" class="wave-canvas" width="800" height="100"></canvas>
+    <div class="wave-stats" style="display:flex; justify-content:space-between; margin-top:8px; font-size:0.65rem;">
+      <span>JS Heap Used: <span id="heapUsed">N/A</span></span>
+      <span>Limit: <span id="heapLimit">N/A</span></span>
+    </div>
+  </div>
+
+  <section class="section">
+    <h2 class="section-title"><i class="fas fa-microchip"></i> RAM / CPU MONITOR</h2>
+    <div class="cm-topbar">
+      <div class="cm-controls">
+        <button id="ramCleanBtn" class="cm-btn cm-btn-primary"><i class="fas fa-broom"></i> Dọn RAM</button>
+        <button id="cpuCleanBtn" class="cm-btn cm-btn-primary"><i class="fas fa-microchip"></i> Dọn CPU</button>
+        <button id="fpsLockBtn" class="cm-btn cm-btn-danger"><i class="fas fa-lock"></i> Lock FPS: OFF</button>
+      </div>
+      <div class="cm-pill">
+        <span>FPS</span>
+        <b id="fpsValue">--</b>
+        <span>• Mode</span>
+        <b id="fpsMode">Unlocked</b>
+      </div>
+    </div>
+    <div class="console-pro">
+      <div class="console-header">
+        <span class="console-dot"></span>
+        <span>SYSTEM CONSOLE</span>
+        <span>LIVE</span>
+      </div>
+      <div id="consoleLog" class="cm-console">[✅] NOVA TECH ULTIMATE - Hệ thống tối ưu mạnh nhất đã sẵn sàng</div>
+    </div>
+  </section>
+
+  <div class="booster-title">
+    <span>⚡</span> BOOSTER <span>⚡</span>
+  </div>
+  <div class="booster-card">
+    <div class="booster-left">
+      <img src="https://i.ibb.co/4ZVWVqm8/IMG-1663.jpg" class="booster-icon">
+      <span>FREE FIRE</span>
+    </div>
+    <button class="booster-btn" onclick="boostFF()">BOOSTER</button>
+  </div>
+  <div class="booster-card">
+    <div class="booster-left">
+      <img src="https://i.ibb.co/chQpJKC7/IMG-1662.jpg" class="booster-icon">
+      <span>FREE FIRE MAX</span>
+    </div>
+    <button class="booster-btn" onclick="boostFFMax()">BOOSTER</button>
+  </div>
+  <div class="footer">© 2026 BẢNG QUYỀN DEV KRYZOSNOVA | NOVA TECH ULTIMATE - Tối ưu thông minh</div>
+</main>
 </div>
 
 <script>
