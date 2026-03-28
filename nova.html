@@ -1040,50 +1040,77 @@ function getSliderValue(id, fallback = 0) {
   return Number.isFinite(num) ? num : Number(fallback);
 }
 
-function showToast(message) {
-  const oldToast = document.getElementById('nova-toast');
-  if (oldToast) oldToast.remove();
-
-  const toast = document.createElement('div');
-  toast.id = 'nova-toast';
-  toast.style.cssText = `
-    position: fixed;
-    top: 80px;
-    left: 50%;
-    transform: translateX(-50%);
-    background: #166534;
-    color: white;
-    padding: 14px 28px;
-    border-radius: 12px;
-    font-size: 15px;
-    font-weight: 600;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
-    z-index: 99999;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    white-space: nowrap;
-    animation: toastIn 0.4s ease forwards;
-  `;
-  toast.innerHTML = `✅ ${message}`;
-  document.body.appendChild(toast);
-
-  setTimeout(() => {
-    toast.style.transition = 'all 0.4s ease';
-    toast.style.opacity = '0';
-    toast.style.transform = 'translateX(-50%) translateY(-20px)';
-    setTimeout(() => toast.remove(), 400);
-  }, 2200);
+function showBoostModal(gameName) {
+    const modal = document.createElement('div');
+    modal.style.cssText = `
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.85);
+        backdrop-filter: blur(8px);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        animation: fadeIn 0.2s ease;
+    `;
+   
+    modal.innerHTML = `
+        <div style="background: linear-gradient(145deg, #0f172a, #0a0f1f); border-radius: 28px; padding: 32px 28px; width: 85%; max-width: 320px; text-align: center; border: 1px solid #3b82f6; box-shadow: 0 0 30px rgba(59,130,246,0.3);">
+            <div id="boost-loader" style="margin-bottom: 20px;">
+                <div style="width: 50px; height: 50px; margin: 0 auto; border: 3px solid #1e293b; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+            </div>
+            <div id="boost-status" style="color: #60a5fa; font-size: 16px; font-weight: 600; margin-bottom: 8px;">ĐANG ÁP DỤNG...</div>
+            <div id="boost-message" style="color: #94a3b8; font-size: 13px; margin-bottom: 20px;">Đang tối ưu ${gameName}</div>
+            <div id="boost-btn-container" style="display: none;">
+                <button id="boost-confirm" style="width: 100%; padding: 12px; background: linear-gradient(95deg, #1e3a8a, #2563eb); border: none; border-radius: 40px; color: white; font-weight: 600; font-size: 15px; cursor: pointer;">XÁC NHẬN</button>
+            </div>
+        </div>
+    `;
+   
+    document.body.appendChild(modal);
+   
+    const style = document.createElement('style');
+    style.textContent = `
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+    `;
+    if (!document.getElementById('boost-style')) {
+        style.id = 'boost-style';
+        document.head.appendChild(style);
+    }
+   
+    setTimeout(() => {
+        const loader = document.getElementById('boost-loader');
+        const statusDiv = document.getElementById('boost-status');
+        const msgDiv = document.getElementById('boost-message');
+        const btnContainer = document.getElementById('boost-btn-container');
+       
+        if (loader) loader.style.display = 'none';
+        if (statusDiv) {
+            statusDiv.innerHTML = '✅ ĐÃ ÁP DỤNG THÀNH CÔNG!';
+            statusDiv.style.color = '#22c55e';
+        }
+        if (msgDiv) msgDiv.innerHTML = `${gameName} đã được tối ưu hóa thành công`;
+        if (btnContainer) btnContainer.style.display = 'block';
+       
+        addLog(`🚀 ${gameName} BOOST - Đã áp dụng AI Optimization Ultimate`);
+       
+        document.getElementById('boost-confirm')?.addEventListener('click', () => {
+            modal.remove();
+        });
+       
+    }, 2500);
 }
 
 function boostFF() {
-  addLog("🚀 BOOST FREE FIRE - Áp dụng AI Optimization Ultimate");
-  showToast("🚀 Boost Free Fire với AI Engine Ultimate");
+    showBoostModal('FREE FIRE');
 }
 
 function boostFFMax() {
-  addLog("⚡ BOOST FREE FIRE MAX - Chế độ Ultra Plus");
-  showToast("⚡ Boost Free Fire MAX với AI Engine Ultimate");
+    showBoostModal('FREE FIRE MAX');
 }
 
 class LegacyFeatureManager {
