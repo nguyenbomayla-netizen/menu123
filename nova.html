@@ -674,13 +674,11 @@
 <script>
 let isValidKey = false;
 let validatedKey = null;
-
 const authState = {
   verified: false,
   verifiedAt: 0,
   verifiedDeviceId: null
 };
-
 const AUTH_SESSION_MS = 15 * 60 * 1000;
 const NOVA_VERIFY_URL = 'https://nova.nguyenbomayla.workers.dev/verify';
 const NOVA_USERNAME = 'novaapp';
@@ -759,46 +757,28 @@ async function checkAPIKey() {
   const keyInput = document.getElementById('password-input');
   const apiKey = normalizeKeyInput(keyInput.value);
   const btn = document.querySelector('.password-btn');
-
   keyInput.value = apiKey;
-
   if (!apiKey) {
     showPasswordError('⚠️ VUI LÒNG NHẬP API KEY', 2000);
     return;
   }
-
   const originalBtnText = btn.innerHTML;
   btn.innerHTML = '<span class="loading-key"></span> ĐANG XÁC THỰC...';
   btn.disabled = true;
-
   try {
     const deviceId = getDeviceId();
-
     const response = await fetch(NOVA_VERIFY_URL, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Accept': 'application/json',
-      },
-      body: JSON.stringify({
-        username: NOVA_USERNAME,
-        key: apiKey,
-        device_id: deviceId
-      })
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify({ username: NOVA_USERNAME, key: apiKey, device_id: deviceId })
     });
-
     const rawText = await response.text();
     let data = {};
-    try {
-      data = rawText ? JSON.parse(rawText) : {};
-    } catch {
-      data = { message: rawText || `HTTP ${response.status}` };
-    }
+    try { data = rawText ? JSON.parse(rawText) : {}; } catch { data = { message: rawText || `HTTP ${response.status}` }; }
 
     if (response.ok && data.valid) {
       markVerified(apiKey, deviceId);
       enableProtectedUI();
-
       const passwordScreen = document.getElementById('password-screen');
       passwordScreen.style.opacity = '0';
       setTimeout(() => {
@@ -970,7 +950,7 @@ class UltimateFeatureManager {
     this.liveDot = this.container?.querySelector('.live-dot');
     this.liveText = this.container?.querySelector('.live-text');
     this.card = document.getElementById(`card-${toggleId.replace('toggle-', '')}`);
-    
+   
     if(this.toggle) {
       this.toggle.addEventListener('change', (e) => {
         if(!isValidKey) {
@@ -983,7 +963,7 @@ class UltimateFeatureManager {
       });
     }
   }
-  
+ 
   updateLiveUI(active) {
     if(active) {
       if(this.liveDot) this.liveDot.style.display = 'inline-block';
@@ -995,7 +975,7 @@ class UltimateFeatureManager {
       if(this.statusSpan) this.statusSpan.style.display = 'inline-block';
     }
   }
-  
+ 
   activate() {
     if(this.isActive) return;
     let success = false;
@@ -1011,7 +991,7 @@ class UltimateFeatureManager {
       this.card?.classList.add('active');
       this.updateLiveUI(true);
       addLog(`🔥 ${this.featureName} ĐÃ KÍCH HOẠT - NOVA TECH ULTIMATE`);
-      
+     
       this.uptimeInterval = setInterval(() => {
         if(!this.isActive) return;
         let elapsed = Math.floor((Date.now() - this.startTime) / 1000);
@@ -1019,7 +999,7 @@ class UltimateFeatureManager {
         let secs = elapsed % 60;
         if(this.uptimeSpan) this.uptimeSpan.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`;
       }, 1000);
-      
+     
       if(this.extraUpdateCallback) {
         this.updateInterval = setInterval(() => {
           if(this.isActive) this.extraUpdateCallback();
@@ -1030,7 +1010,7 @@ class UltimateFeatureManager {
       this.toggle.checked = false;
     }
   }
-  
+ 
   deactivate() {
     if(!this.isActive) return;
     this.isActive = false;
@@ -1060,99 +1040,156 @@ function getSliderValue(id, fallback = 0) {
   return Number.isFinite(num) ? num : Number(fallback);
 }
 
-function boostFF() { addLog("🚀 BOOST FREE FIRE - Áp dụng AI Optimization Ultimate"); alert("🚀 Boost Free Fire với AI Engine Ultimate"); }
-function boostFFMax() { addLog("⚡ BOOST FREE FIRE MAX - Chế độ Ultra Plus"); alert("⚡ Boost Free Fire MAX"); }
+function showToast(message) {
+  const oldToast = document.getElementById('nova-toast');
+  if (oldToast) oldToast.remove();
+
+  const toast = document.createElement('div');
+  toast.id = 'nova-toast';
+  toast.style.cssText = `
+    position: fixed;
+    top: 80px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #166534;
+    color: white;
+    padding: 14px 28px;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+    z-index: 99999;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    white-space: nowrap;
+    animation: toastIn 0.4s ease forwards;
+  `;
+  toast.innerHTML = `✅ ${message}`;
+  document.body.appendChild(toast);
+
+  setTimeout(() => {
+    toast.style.transition = 'all 0.4s ease';
+    toast.style.opacity = '0';
+    toast.style.transform = 'translateX(-50%) translateY(-20px)';
+    setTimeout(() => toast.remove(), 400);
+  }, 2200);
+}
+
+function boostFF() {
+  addLog("🚀 BOOST FREE FIRE - Áp dụng AI Optimization Ultimate");
+  showToast("🚀 Boost Free Fire với AI Engine Ultimate");
+}
+
+function boostFFMax() {
+  addLog("⚡ BOOST FREE FIRE MAX - Chế độ Ultra Plus");
+  showToast("⚡ Boost Free Fire MAX với AI Engine Ultimate");
+}
 
 class LegacyFeatureManager {
-    constructor(id, toggleId, statusId, uptimeId, reticleIds, featureName, containerId) {
-      this.id = id;
-      this.toggle = document.getElementById(toggleId);
-      this.statusSpan = document.getElementById(statusId);
-      this.uptimeSpan = document.getElementById(uptimeId);
-      this.reticleIds = reticleIds;
-      this.featureName = featureName;
-      this.container = document.getElementById(containerId);
-      this.liveDot = this.container?.querySelector('.live-dot');
-      this.liveText = this.container?.querySelector('.live-text');
-      this.isRunning = false;
-      this.startTime = null;
-      this.uptimeInterval = null;
-      this.reticleInterval = null;
-      this.card = document.getElementById(`card-${id}`);
-      this.init();
-    }
-    init() { 
-      if(this.toggle) {
-        this.toggle.addEventListener('change', (e) => { 
-          if(!isValidKey) {
-            alert('⚠️ Vui lòng xác thực API Key trước khi sử dụng!');
-            e.target.checked = false;
-            return;
-          }
-          if(e.target.checked) this.start(); 
-          else this.stop(); 
-        });
-      }
-    }
-    updateLiveUI(active) {
-      if(active) { if(this.liveDot) this.liveDot.style.display = 'inline-block'; if(this.liveText) this.liveText.style.display = 'inline-block'; if(this.statusSpan) this.statusSpan.style.display = 'none'; } 
-      else { if(this.liveDot) this.liveDot.style.display = 'none'; if(this.liveText) this.liveText.style.display = 'none'; if(this.statusSpan) this.statusSpan.style.display = 'inline-block'; }
-    }
-    start() {
-      if(this.isRunning) return;
-      this.isRunning = true;
-      this.startTime = Date.now();
-      this.card?.classList.add('active');
-      this.updateLiveUI(true);
-      addLog(`🔥 ${this.featureName} KÍCH HOẠT - NOVA TECH ULTIMATE`);
-      if(this.id === 'aimlock') aimAssist();
-      if(this.id === 'stability') aimAssist();
-      if(this.id === 'aimhold') aimAssist();
-      if(this.id === 'lockdown') aimAssist();
-      this.uptimeInterval = setInterval(() => { if(this.isRunning) { let elapsed = Math.floor((Date.now() - this.startTime) / 1000); let mins = Math.floor(elapsed / 60); let secs = elapsed % 60; this.uptimeSpan.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; } }, 1000);
-      const syncCardMetrics = () => {
-        if(!this.isRunning) return;
-        if(this.id === 'aimlock') {
-          const precision = getSliderValue('tune-aimlock-precision', 88);
-          const el = document.getElementById('aimlock-reticle');
-          if(el) el.innerText = `${(620 + (100 - precision) * 2.1).toFixed(1)}, ${(318 + (100 - precision) * 1.3).toFixed(1)}`;
+  constructor(id, toggleId, statusId, uptimeId, reticleIds, featureName, containerId) {
+    this.id = id;
+    this.toggle = document.getElementById(toggleId);
+    this.statusSpan = document.getElementById(statusId);
+    this.uptimeSpan = document.getElementById(uptimeId);
+    this.reticleIds = reticleIds;
+    this.featureName = featureName;
+    this.container = document.getElementById(containerId);
+    this.liveDot = this.container?.querySelector('.live-dot');
+    this.liveText = this.container?.querySelector('.live-text');
+    this.isRunning = false;
+    this.startTime = null;
+    this.uptimeInterval = null;
+    this.reticleInterval = null;
+    this.card = document.getElementById(`card-${id}`);
+    this.init();
+  }
+  init() {
+    if(this.toggle) {
+      this.toggle.addEventListener('change', (e) => {
+        if(!isValidKey) {
+          alert('⚠️ Vui lòng xác thực API Key trước khi sử dụng!');
+          e.target.checked = false;
+          return;
         }
-        if(this.id === 'stability') {
-          const smooth = getSliderValue('tune-stability-smoothing', 82);
-          const el = document.getElementById('stability-reticle');
-          if(el) el.innerText = `${(690 + (100 - smooth) * 0.8).toFixed(1)}, ${(345 + (100 - smooth) * 0.6).toFixed(1)}`;
-        }
-        if(this.id === 'aimhold') {
-          const force = getSliderValue('tune-aimhold-force', 74);
-          const radius = getSliderValue('tune-aimhold-radius', 28);
-          const anchorX = 600 + radius * 0.9;
-          const anchorY = 340 + radius * 0.7;
-          const reticleX = anchorX + Math.max(0.1, (100 - force) / 100);
-          const reticleY = anchorY + Math.max(0.1, (100 - force) / 120);
-          const anchor = document.getElementById('aimhold-anchor');
-          const reticle = document.getElementById('aimhold-reticle');
-          if(anchor) anchor.innerText = `${anchorX.toFixed(1)}, ${anchorY.toFixed(1)}`;
-          if(reticle) reticle.innerText = `${reticleX.toFixed(1)}, ${reticleY.toFixed(1)}`;
-        }
-        if(this.id === 'lockdown') {
-          const radius = getSliderValue('tune-lockdown-radius', 46);
-          const el = document.getElementById('lockdown-zone');
-          if(el) el.innerText = `${(680 + radius * 0.8).toFixed(1)}, ${(280 + radius * 0.5).toFixed(1)}`;
-        }
-      };
-      syncCardMetrics();
-      this.reticleInterval = setInterval(syncCardMetrics, 250);
+        if(e.target.checked) this.start();
+        else this.stop();
+      });
     }
-    stop() {
+  }
+  updateLiveUI(active) {
+    if(active) { 
+      if(this.liveDot) this.liveDot.style.display = 'inline-block'; 
+      if(this.liveText) this.liveText.style.display = 'inline-block'; 
+      if(this.statusSpan) this.statusSpan.style.display = 'none'; 
+    } else { 
+      if(this.liveDot) this.liveDot.style.display = 'none'; 
+      if(this.liveText) this.liveText.style.display = 'none'; 
+      if(this.statusSpan) this.statusSpan.style.display = 'inline-block'; 
+    }
+  }
+  start() {
+    if(this.isRunning) return;
+    this.isRunning = true;
+    this.startTime = Date.now();
+    this.card?.classList.add('active');
+    this.updateLiveUI(true);
+    addLog(`🔥 ${this.featureName} KÍCH HOẠT - NOVA TECH ULTIMATE`);
+    if(this.id === 'aimlock') aimAssist();
+    if(this.id === 'stability') aimAssist();
+    if(this.id === 'aimhold') aimAssist();
+    if(this.id === 'lockdown') aimAssist();
+    this.uptimeInterval = setInterval(() => { 
+      if(this.isRunning) { 
+        let elapsed = Math.floor((Date.now() - this.startTime) / 1000); 
+        let mins = Math.floor(elapsed / 60); 
+        let secs = elapsed % 60; 
+        this.uptimeSpan.innerText = `${mins.toString().padStart(2,'0')}:${secs.toString().padStart(2,'0')}`; 
+      } 
+    }, 1000);
+    const syncCardMetrics = () => {
       if(!this.isRunning) return;
-      this.isRunning = false;
-      if(this.uptimeInterval) clearInterval(this.uptimeInterval);
-      if(this.reticleInterval) clearInterval(this.reticleInterval);
-      this.card?.classList.remove('active');
-      this.updateLiveUI(false);
-      this.uptimeSpan.innerText = '00:00';
-      addLog(`⏹️ ${this.featureName} ĐÃ DỪNG`);
-    }
+      if(this.id === 'aimlock') {
+        const precision = getSliderValue('tune-aimlock-precision', 88);
+        const el = document.getElementById('aimlock-reticle');
+        if(el) el.innerText = `${(620 + (100 - precision) * 2.1).toFixed(1)}, ${(318 + (100 - precision) * 1.3).toFixed(1)}`;
+      }
+      if(this.id === 'stability') {
+        const smooth = getSliderValue('tune-stability-smoothing', 82);
+        const el = document.getElementById('stability-reticle');
+        if(el) el.innerText = `${(690 + (100 - smooth) * 0.8).toFixed(1)}, ${(345 + (100 - smooth) * 0.6).toFixed(1)}`;
+      }
+      if(this.id === 'aimhold') {
+        const force = getSliderValue('tune-aimhold-force', 74);
+        const radius = getSliderValue('tune-aimhold-radius', 28);
+        const anchorX = 600 + radius * 0.9;
+        const anchorY = 340 + radius * 0.7;
+        const reticleX = anchorX + Math.max(0.1, (100 - force) / 100);
+        const reticleY = anchorY + Math.max(0.1, (100 - force) / 120);
+        const anchor = document.getElementById('aimhold-anchor');
+        const reticle = document.getElementById('aimhold-reticle');
+        if(anchor) anchor.innerText = `${anchorX.toFixed(1)}, ${anchorY.toFixed(1)}`;
+        if(reticle) reticle.innerText = `${reticleX.toFixed(1)}, ${reticleY.toFixed(1)}`;
+      }
+      if(this.id === 'lockdown') {
+        const radius = getSliderValue('tune-lockdown-radius', 46);
+        const el = document.getElementById('lockdown-zone');
+        if(el) el.innerText = `${(680 + radius * 0.8).toFixed(1)}, ${(280 + radius * 0.5).toFixed(1)}`;
+      }
+    };
+    syncCardMetrics();
+    this.reticleInterval = setInterval(syncCardMetrics, 250);
+  }
+  stop() {
+    if(!this.isRunning) return;
+    this.isRunning = false;
+    if(this.uptimeInterval) clearInterval(this.uptimeInterval);
+    if(this.reticleInterval) clearInterval(this.reticleInterval);
+    this.card?.classList.remove('active');
+    this.updateLiveUI(false);
+    this.uptimeSpan.innerText = '00:00';
+    addLog(`⏹️ ${this.featureName} ĐÃ DỪNG`);
+  }
 }
 
 function initAll() {
@@ -1160,7 +1197,7 @@ function initAll() {
   features.push(new LegacyFeatureManager('stability', 'toggle-stability', 'stability-status', 'stability-uptime', ['stability-reticle'], 'STABILITY ASSIST', 'stability-status-container'));
   features.push(new LegacyFeatureManager('aimhold', 'toggle-aimhold', 'aimhold-status', 'aimhold-uptime', ['aimhold-anchor', 'aimhold-reticle'], 'AIM HOLD', 'aimhold-status-container'));
   features.push(new LegacyFeatureManager('lockdown', 'toggle-lockdown', 'lockdown-status', 'lockdown-uptime', ['lockdown-zone'], 'AIM LOCKDOWN', 'lockdown-status-container'));
-  
+ 
   features.push(new UltimateFeatureManager('toggle-autoheadshot', autoHeadshot, 'AUTO HEADSHOT ULTIMATE', 'hs-status', 'hs-uptime', () => {
     const bias = getSliderValue('tune-hs-rate', 92);
     const burst = getSliderValue('tune-hs-burst', 78);
@@ -1169,14 +1206,14 @@ function initAll() {
     document.getElementById('hs-rate').innerText = rate + '%';
     document.getElementById('hs-count').innerText = fixedCount;
   }));
-  
+ 
   features.push(new UltimateFeatureManager('toggle-norecoil', noRecoil, 'NO RECOIL', 'recoil-status', 'recoil-uptime', () => {
     const cut = getSliderValue('tune-recoil-cut', 12);
     const stability = getSliderValue('tune-recoil-balance', 91);
     document.getElementById('recoil-value').innerText = (cut / 100).toFixed(2);
     document.getElementById('recoil-stability').innerHTML = `${Math.round(stability)}%`;
   }));
-  
+ 
   features.push(new UltimateFeatureManager('toggle-touchboost', touchBoost, 'TOUCH BOOST', 'touch-status', 'touch-uptime', () => {
     const rate = getSliderValue('tune-touch-rate', 240);
     const sense = getSliderValue('tune-touch-sense', 24);
@@ -1184,7 +1221,7 @@ function initAll() {
     document.getElementById('touch-response').innerText = response + 'ms';
     document.getElementById('touch-sensitivity').innerText = (sense / 10).toFixed(1) + 'x';
   }));
-  
+ 
   features.push(new UltimateFeatureManager('toggle-fpsboost', fpsUnlock, 'FPS BOOST ULTRA', 'fps-status', 'fps-uptime', () => {
     const target = getSliderValue('tune-fps-target', 90);
     const pacing = getSliderValue('tune-fps-pacing', 84);
@@ -1197,47 +1234,122 @@ function initAll() {
 let ramRunning = false, cpuRunning = false, fpsLocked = false;
 let ramInterval = null, cpuInterval = null, fpsInterval = null;
 
-function startRAMClean() { 
+function startRAMClean() {
   if(!isValidKey) { alert('⚠️ Vui lòng xác thực API Key trước khi sử dụng!'); return; }
-  if(ramRunning) return; 
-  ramRunning = true; 
-  document.getElementById('ramCleanBtn').classList.add('active'); 
-  addLog("🧹 DỌN RAM ULTIMATE - AI Engine tối ưu bộ nhớ"); 
-  if(typeof h5gg !== 'undefined') ramCleaner(); 
-  else addLog("[DEMO] Dọn RAM (simulated)"); 
-  ramInterval = setInterval(() => { if(ramRunning) addLog(`🧹 Dọn RAM lần...`); }, 3000); 
+  if(ramRunning) return;
+  ramRunning = true;
+  document.getElementById('ramCleanBtn').classList.add('active');
+  addLog("🧹 DỌN RAM ULTIMATE - AI Engine tối ưu bộ nhớ");
+  if(typeof h5gg !== 'undefined') ramCleaner();
+  else addLog("[⚠️ DEMO] Dọn RAM (simulated)");
+  ramInterval = setInterval(() => { if(ramRunning) addLog(`🧹 Dọn RAM lần...`); }, 3000);
 }
-function stopRAMClean() { if(!ramRunning) return; ramRunning = false; if(ramInterval) clearInterval(ramInterval); document.getElementById('ramCleanBtn').classList.remove('active'); addLog("✅ DỌN RAM HOÀN TẤT"); }
-function startCPUClean() { 
+
+function stopRAMClean() { 
+  if(!ramRunning) return; 
+  ramRunning = false; 
+  if(ramInterval) clearInterval(ramInterval); 
+  document.getElementById('ramCleanBtn').classList.remove('active'); 
+  addLog("✅ DỌN RAM HOÀN TẤT"); 
+}
+
+function startCPUClean() {
   if(!isValidKey) { alert('⚠️ Vui lòng xác thực API Key trước khi sử dụng!'); return; }
-  if(cpuRunning) return; 
-  cpuRunning = true; 
-  document.getElementById('cpuCleanBtn').classList.add('active'); 
-  addLog("⚙️ DỌN CPU ULTIMATE - AI tối ưu xử lý"); 
-  if(typeof h5gg !== 'undefined') cpuTurbo(); 
-  else addLog("[DEMO] Dọn CPU (simulated)"); 
-  cpuInterval = setInterval(() => { if(cpuRunning) addLog(`⚙️ Tối ưu CPU lần...`); }, 2500); 
+  if(cpuRunning) return;
+  cpuRunning = true;
+  document.getElementById('cpuCleanBtn').classList.add('active');
+  addLog("⚙️ DỌN CPU ULTIMATE - AI tối ưu xử lý");
+  if(typeof h5gg !== 'undefined') cpuTurbo();
+  else addLog("[⚠️ DEMO] Dọn CPU (simulated)");
+  cpuInterval = setInterval(() => { if(cpuRunning) addLog(`⚙️ Tối ưu CPU lần...`); }, 2500);
 }
-function stopCPUClean() { if(!cpuRunning) return; cpuRunning = false; if(cpuInterval) clearInterval(cpuInterval); document.getElementById('cpuCleanBtn').classList.remove('active'); addLog("✅ DỌN CPU HOÀN TẤT"); }
+
+function stopCPUClean() { 
+  if(!cpuRunning) return; 
+  cpuRunning = false; 
+  if(cpuInterval) clearInterval(cpuInterval); 
+  document.getElementById('cpuCleanBtn').classList.remove('active'); 
+  addLog("✅ DỌN CPU HOÀN TẤT"); 
+}
+
 function toggleFPSLock(btn) {
   if(!isValidKey) { alert('⚠️ Vui lòng xác thực API Key trước khi sử dụng!'); return; }
   const targetFps = getSliderValue('tune-fps-target', 90);
   if(fpsLocked) {
-    fpsLocked = false; btn.innerHTML = '<i class="fas fa-lock-open"></i> Lock FPS: OFF'; btn.classList.remove('active'); btn.classList.add('cm-btn-danger'); document.getElementById('fpsMode').innerText = 'Unlocked'; if(fpsInterval) clearInterval(fpsInterval); addLog("🔓 MỞ KHÓA FPS");
+    fpsLocked = false; 
+    btn.innerHTML = '<i class="fas fa-lock-open"></i> Lock FPS: OFF'; 
+    btn.classList.remove('active'); 
+    btn.classList.add('cm-btn-danger'); 
+    document.getElementById('fpsMode').innerText = 'Unlocked'; 
+    if(fpsInterval) clearInterval(fpsInterval); 
+    addLog("🔓 MỞ KHÓA FPS");
   } else {
-    fpsLocked = true; btn.innerHTML = '<i class="fas fa-lock"></i> Lock FPS: ON'; btn.classList.remove('cm-btn-danger'); btn.classList.add('active', 'cm-btn-primary'); document.getElementById('fpsMode').innerText = `Locked ${targetFps}`; addLog(`🔒 KHÓA FPS ${targetFps} - AI duy trì ổn định`); if(typeof h5gg !== 'undefined') fpsUnlock(); else addLog("[DEMO] Lock FPS (simulated)"); fpsInterval = setInterval(() => { if(fpsLocked) document.getElementById('fpsValue').innerText = String(targetFps); }, 500);
+    fpsLocked = true; 
+    btn.innerHTML = '<i class="fas fa-lock"></i> Lock FPS: ON'; 
+    btn.classList.remove('cm-btn-danger'); 
+    btn.classList.add('active', 'cm-btn-primary'); 
+    document.getElementById('fpsMode').innerText = `Locked ${targetFps}`; 
+    addLog(`🔒 KHÓA FPS ${targetFps} - AI duy trì ổn định`); 
+    if(typeof h5gg !== 'undefined') fpsUnlock(); 
+    else addLog("[⚠️ DEMO] Lock FPS (simulated)"); 
+    fpsInterval = setInterval(() => { if(fpsLocked) document.getElementById('fpsValue').innerText = String(targetFps); }, 500);
   }
 }
 
 function startLiveStats() { return; }
 
 class WaveChart {
-  constructor(canvasId, valueId, color) { this.canvas = document.getElementById(canvasId); this.valueEl = document.getElementById(valueId); this.color = color; this.data = Array(60).fill(0); this.isRunning = false; this.interval = null; if(this.canvas) { this.ctx = this.canvas.getContext('2d'); this.resize(); window.addEventListener('resize', () => this.resize()); } }
-  resize() { if(!this.canvas) return; let w = this.canvas.parentElement?.clientWidth - 20 || 400; this.canvas.width = w; this.canvas.height = 100; this.draw(); }
+  constructor(canvasId, valueId, color) { 
+    this.canvas = document.getElementById(canvasId); 
+    this.valueEl = document.getElementById(valueId); 
+    this.color = color; 
+    this.data = Array(60).fill(0); 
+    this.isRunning = false; 
+    this.interval = null; 
+    if(this.canvas) { 
+      this.ctx = this.canvas.getContext('2d'); 
+      this.resize(); 
+      window.addEventListener('resize', () => this.resize()); 
+    } 
+  }
+  resize() { 
+    if(!this.canvas) return; 
+    let w = this.canvas.parentElement?.clientWidth - 20 || 400; 
+    this.canvas.width = w; 
+    this.canvas.height = 100; 
+    this.draw(); 
+  }
   start() { if(this.isRunning) return; this.isRunning = true; this.draw(); }
-  stop() { this.isRunning = false; if(this.interval) clearInterval(this.interval); this.data = Array(60).fill(0); if(this.valueEl) this.valueEl.innerText = '0%'; this.draw(); }
-  draw() { if(!this.ctx || !this.canvas) return; let w = this.canvas.width, h = this.canvas.height; this.ctx.clearRect(0,0,w,h); if(this.data.length < 2) return; let step = w / (this.data.length - 1); this.ctx.beginPath(); this.ctx.strokeStyle = this.color; this.ctx.lineWidth = 2; for(let i=0;i<this.data.length;i++) { let x = i * step; let y = h - (this.data[i]/100)*h; if(i===0) this.ctx.moveTo(x,y); else this.ctx.lineTo(x,y); } this.ctx.stroke(); this.ctx.fillStyle = this.color + '30'; this.ctx.lineTo(w,h); this.ctx.lineTo(0,h); this.ctx.fill(); }
+  stop() { 
+    this.isRunning = false; 
+    if(this.interval) clearInterval(this.interval); 
+    this.data = Array(60).fill(0); 
+    if(this.valueEl) this.valueEl.innerText = '0%'; 
+    this.draw(); 
+  }
+  draw() { 
+    if(!this.ctx || !this.canvas) return; 
+    let w = this.canvas.width, h = this.canvas.height; 
+    this.ctx.clearRect(0,0,w,h); 
+    if(this.data.length < 2) return; 
+    let step = w / (this.data.length - 1); 
+    this.ctx.beginPath(); 
+    this.ctx.strokeStyle = this.color; 
+    this.ctx.lineWidth = 2; 
+    for(let i=0;i<this.data.length;i++) { 
+      let x = i * step; 
+      let y = h - (this.data[i]/100)*h; 
+      if(i===0) this.ctx.moveTo(x,y); 
+      else this.ctx.lineTo(x,y); 
+    } 
+    this.ctx.stroke(); 
+    this.ctx.fillStyle = this.color + '30'; 
+    this.ctx.lineTo(w,h); 
+    this.ctx.lineTo(0,h); 
+    this.ctx.fill(); 
+  }
 }
+
 const cpuWave = new WaveChart('cpuWaveCanvas', 'cpuWaveValue', '#3b82f6');
 const ramWave = new WaveChart('ramWaveCanvas', 'ramWaveValue', '#60a5fa');
 
@@ -1246,9 +1358,17 @@ function enterPanel() {
     alert('⚠️ Phiên xác thực không còn hợp lệ. Vui lòng nhập lại API Key!');
     return;
   }
-  const intro = document.getElementById('home-intro'); const panel = document.getElementById('main-panel');
-  intro.style.opacity = '0'; intro.style.transition = 'opacity 0.5s';
-  setTimeout(() => { intro.style.display = 'none'; panel.style.display = 'block'; startLiveStats(); addLog("🔥 NOVA TECH ULTIMATE - Hệ thống mạnh nhất đã sẵn sàng"); addLog("💡 Bật các tính năng VIP để trải nghiệm sức mạnh tối thượng"); }, 500);
+  const intro = document.getElementById('home-intro'); 
+  const panel = document.getElementById('main-panel');
+  intro.style.opacity = '0'; 
+  intro.style.transition = 'opacity 0.5s';
+  setTimeout(() => { 
+    intro.style.display = 'none'; 
+    panel.style.display = 'block'; 
+    startLiveStats(); 
+    addLog("🔥 NOVA TECH ULTIMATE - Hệ thống mạnh nhất đã sẵn sàng"); 
+    addLog("💡 Bật các tính năng VIP để trải nghiệm sức mạnh tối thượng"); 
+  }, 500);
 }
 
 document.getElementById('main-panel')?.addEventListener('click', (e) => {
@@ -1272,12 +1392,38 @@ document.getElementById('main-panel')?.addEventListener('change', (e) => {
 
 document.getElementById('ramCleanBtn')?.addEventListener('click', () => ramRunning ? stopRAMClean() : startRAMClean());
 document.getElementById('cpuCleanBtn')?.addEventListener('click', () => cpuRunning ? stopCPUClean() : startCPUClean());
-const fpsBtn = document.getElementById('fpsLockBtn'); if(fpsBtn) fpsBtn.addEventListener('click', () => toggleFPSLock(fpsBtn));
+
+const fpsBtn = document.getElementById('fpsLockBtn'); 
+if(fpsBtn) fpsBtn.addEventListener('click', () => toggleFPSLock(fpsBtn));
+
 document.getElementById('announce-close')?.addEventListener('click', () => document.getElementById('announce-bar').style.display = 'none');
 document.getElementById('mode-select')?.addEventListener('change', (e) => addLog(`Chế độ Panel: ${e.target.value}`));
-document.getElementById('dpi-select')?.addEventListener('change', (e) => { addLog(`DPI: ${e.target.value}`); if(typeof h5gg !== 'undefined') { let dpiVal = parseFloat(e.target.value); h5gg.clearResults(); h5gg.searchNumber('440','I32','0x100000000','0x160000000'); h5gg.editAll(dpiVal * 440, 'I32'); } else addLog("[DEMO] Đã set DPI"); });
-document.querySelectorAll('.mode-btn').forEach(btn => { btn.addEventListener('click', () => { document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); let mode = btn.innerText; document.getElementById('perf-mode').innerText = mode.split(' ')[0]; addLog(`🎮 Chuyển sang chế độ ${mode} - AI Performance Engine`); }); });
-function updateHeap() { if(performance.memory) { document.getElementById('heapUsed').innerText = (performance.memory.usedJSHeapSize/(1024*1024)).toFixed(1)+' MB'; document.getElementById('heapLimit').innerText = (performance.memory.jsHeapSizeLimit/(1024*1024)).toFixed(0)+' MB'; } }
+document.getElementById('dpi-select')?.addEventListener('change', (e) => { 
+  addLog(`DPI: ${e.target.value}`); 
+  if(typeof h5gg !== 'undefined') { 
+    let dpiVal = parseFloat(e.target.value); 
+    h5gg.clearResults(); 
+    h5gg.searchNumber('440','I32','0x100000000','0x160000000'); 
+    h5gg.editAll(dpiVal * 440, 'I32'); 
+  } else addLog("[⚠️ DEMO] Đã set DPI"); 
+});
+
+document.querySelectorAll('.mode-btn').forEach(btn => { 
+  btn.addEventListener('click', () => { 
+    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active')); 
+    btn.classList.add('active'); 
+    let mode = btn.innerText; 
+    document.getElementById('perf-mode').innerText = mode.split(' ')[0]; 
+    addLog(`🎮 Chuyển sang chế độ ${mode} - AI Performance Engine`); 
+  }); 
+});
+
+function updateHeap() { 
+  if(performance.memory) { 
+    document.getElementById('heapUsed').innerText = (performance.memory.usedJSHeapSize/(1024*1024)).toFixed(1)+' MB'; 
+    document.getElementById('heapLimit').innerText = (performance.memory.jsHeapSizeLimit/(1024*1024)).toFixed(0)+' MB'; 
+  } 
+}
 setInterval(updateHeap, 2000);
 
 disableProtectedUI();
@@ -1287,7 +1433,8 @@ addLog("💡 Bật MOD VIP hoặc dọn RAM/CPU để kích hoạt AI Performanc
 
 const pCanvas = document.getElementById('particles-canvas');
 if(pCanvas) {
-  pCanvas.width = innerWidth; pCanvas.height = innerHeight;
+  pCanvas.width = innerWidth; 
+  pCanvas.height = innerHeight;
   const ctx = pCanvas.getContext('2d');
   let parts = [];
   for(let i=0;i<60;i++) parts.push({x:Math.random()*pCanvas.width, y:Math.random()*pCanvas.height, r:Math.random()*2+1, a:Math.random()*0.4, vx:(Math.random()-0.5)*0.25, vy:(Math.random()-0.5)*0.2});
@@ -1297,88 +1444,18 @@ if(pCanvas) {
       ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
       ctx.fillStyle = `rgba(59,130,246,${p.a})`; ctx.fill();
       p.x += p.vx; p.y += p.vy;
-      if(p.x<0) p.x=pCanvas.width; if(p.x>pCanvas.width) p.x=0;
-      if(p.y<0) p.y=pCanvas.height; if(p.y>pCanvas.height) p.y=0;
+      if(p.x<0) p.x=pCanvas.width; 
+      if(p.x>pCanvas.width) p.x=0;
+      if(p.y<0) p.y=pCanvas.height; 
+      if(p.y>pCanvas.height) p.y=0;
     }
     requestAnimationFrame(drawParts);
   }
   drawParts();
-  window.addEventListener('resize',()=>{ pCanvas.width=innerWidth; pCanvas.height=innerHeight; });
-}
-function showBoostModal(gameName, callback) {
-    const modal = document.createElement('div');
-    modal.style.cssText = `
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0,0,0,0.85);
-        backdrop-filter: blur(8px);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 9999;
-        animation: fadeIn 0.2s ease;
-    `;
-    
-    modal.innerHTML = `
-        <div style="background: linear-gradient(145deg, #0f172a, #0a0f1f); border-radius: 28px; padding: 32px 28px; width: 85%; max-width: 320px; text-align: center; border: 1px solid #3b82f6; box-shadow: 0 0 30px rgba(59,130,246,0.3);">
-            <div id="boost-loader" style="margin-bottom: 20px;">
-                <div style="width: 50px; height: 50px; margin: 0 auto; border: 3px solid #1e293b; border-top-color: #3b82f6; border-radius: 50%; animation: spin 1s linear infinite;"></div>
-            </div>
-            <div id="boost-status" style="color: #60a5fa; font-size: 16px; font-weight: 600; margin-bottom: 8px;">ĐANG ÁP DỤNG...</div>
-            <div id="boost-message" style="color: #94a3b8; font-size: 13px; margin-bottom: 20px;">Đang tối ưu ${gameName}</div>
-            <div id="boost-btn-container" style="display: none;">
-                <button id="boost-confirm" style="width: 100%; padding: 12px; background: linear-gradient(95deg, #1e3a8a, #2563eb); border: none; border-radius: 40px; color: white; font-weight: 600; font-size: 15px; cursor: pointer;">XÁC NHẬN</button>
-            </div>
-        </div>
-    `;
-    
-    document.body.appendChild(modal);
-    
-    const style = document.createElement('style');
-    style.textContent = `
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        @keyframes spin { to { transform: rotate(360deg); } }
-    `;
-    document.head.appendChild(style);
-    
-    setTimeout(() => {
-        const loader = document.getElementById('boost-loader');
-        const statusDiv = document.getElementById('boost-status');
-        const msgDiv = document.getElementById('boost-message');
-        const btnContainer = document.getElementById('boost-btn-container');
-        
-        if (loader) loader.style.display = 'none';
-        if (statusDiv) {
-            statusDiv.innerHTML = '✅ ĐÃ ÁP DỤNG THÀNH CÔNG!';
-            statusDiv.style.color = '#22c55e';
-        }
-        if (msgDiv) msgDiv.innerHTML = `${gameName} đã được tối ưu hóa thành công`;
-        if (btnContainer) btnContainer.style.display = 'block';
-        
-        addLog(`🚀 ${gameName} BOOST - Đã áp dụng AI Optimization Ultimate`);
-        
-        if (callback) callback();
-        
-        document.getElementById('boost-confirm')?.addEventListener('click', () => {
-            modal.remove();
-        });
-        
-    }, 3000);
-}
-
-function boostFF() { 
-    showBoostModal('FREE FIRE', () => {
-        alert('🚀 Boost Free Fire với AI Engine Ultimate');
-    });
-}
-
-function boostFFMax() { 
-    showBoostModal('FREE FIRE MAX', () => {
-        alert('⚡ Boost Free Fire MAX với AI Engine Ultimate');
-    });
+  window.addEventListener('resize',()=>{ 
+    pCanvas.width=innerWidth; 
+    pCanvas.height=innerHeight; 
+  });
 }
 </script>
 
